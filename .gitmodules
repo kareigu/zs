@@ -1,0 +1,4 @@
+[submodule "vendor/godot-cpp"]
+	path = vendor/godot-cpp
+	url = git@github.com:godotengine/godot-cpp.git
+	branch = 4.2
