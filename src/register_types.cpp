@@ -1,8 +1,6 @@
 #include "register_types.h"
 
-#include "mlook.h"
 #include "player.h"
-#include "pmove.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -16,8 +14,6 @@ void initialize_zs_module(ModuleInitializationLevel p_level) {
   }
 
   ClassDB::register_class<Player>();
-  ClassDB::register_class<PMove>();
-  ClassDB::register_class<MLook>();
 }
 
 void uninitialize_zs_module(ModuleInitializationLevel p_level) {

@@ -18,3 +18,4 @@ mono_crash.*.json
 *~
 *.blend1
 *.obj
+.sconsign.dblite
