@@ -354,7 +354,10 @@ void Player::duck(double delta) {
     auto hor_vel = m_player_velocity;
     hor_vel.y = 0;
     real_t vel = hor_vel.length();
-    real_t max_speed = m_ground_vars.max_speed * DUCK_SPEED_MULTIPLIER;
+    real_t multiplier = m_state & StateFlags::Sneaking
+                              ? DUCK_SPEED_MULTIPLIER * SNEAKING_SPEED_MULTIPLIER
+                              : DUCK_SPEED_MULTIPLIER;
+    real_t max_speed = m_ground_vars.max_speed * multiplier;
     if (vel > max_speed) {
       hor_vel.normalize();
       m_player_velocity.x = hor_vel.x * max_speed;
