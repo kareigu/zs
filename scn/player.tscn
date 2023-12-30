@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxfp3v8bpvj0"]
+
+[ext_resource type="Shape3D" uid="uid://diic0wwhfhfmh" path="res://res/player_duck_hull.tres" id="1_qldhy"]
+[ext_resource type="Shape3D" uid="uid://bokoacud7uhp2" path="res://res/player_hull.tres" id="1_siyi7"]
+[ext_resource type="PackedScene" uid="uid://dbupxeb6r8tcg" path="res://gfx/models/ct.glb" id="3_fg6ml"]
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_mhnsd"]
+frustum_focal_length = 12.0
+frustum_far = 334.0
+
+[node name="player" type="CharacterBody3D"]
+
+[node name="hull" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = ExtResource("1_siyi7")
+
+[node name="duck_hull" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = ExtResource("1_qldhy")
+disabled = true
+
+[node name="character_model" parent="." instance=ExtResource("3_fg6ml")]
+
+[node name="mlook" type="MLook" parent="."]
+head_height = 1.9
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+
+[node name="view" type="Camera3D" parent="mlook"]
+attributes = SubResource("CameraAttributesPhysical_mhnsd")
+current = true
+
+[node name="pmove" type="PMove" parent="."]
+head = NodePath("../mlook")
+hull = NodePath("../hull")
+duck_hull = NodePath("../duck_hull")

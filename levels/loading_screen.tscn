@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2ff2av81y2dn"]
+
+[sub_resource type="GDScript" id="GDScript_cllux"]
+script/source = "extends Node2D
+
+var progress: Array = []
+@onready var progress_bar : ProgressBar = $ProgressBar
+@onready var start = preload(\"res://levels/start.tscn\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	var test_level = ResourceLoader.load_threaded_request(\"res://levels/test_level.tscn\", \"PackedScene\", true)
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	match ResourceLoader.load_threaded_get_status(\"res://levels/test_level.tscn\", progress):
+		ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			progress_bar.value = progress[0] * 100
+		ResourceLoader.THREAD_LOAD_INVALID_RESOURCE or ResourceLoader.THREAD_LOAD_FAILED:
+			push_error(\"Couldn't load test_level\")
+			get_tree().change_scene_to_packed(start)
+		ResourceLoader.THREAD_LOAD_LOADED:
+			var test_level = ResourceLoader.load_threaded_get(\"res://levels/test_level.tscn\")
+			get_tree().change_scene_to_packed(test_level)
+"
+
+[node name="LoadingScreen" type="Node2D"]
+script = SubResource("GDScript_cllux")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+offset_left = 2.0
+offset_top = 7.0
+offset_right = 1279.0
+offset_bottom = 719.0
+stretch_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="AspectRatioContainer"]
+layout_mode = 2
+color = Color(0.0352941, 0.054902, 0.0784314, 1)
+
+[node name="Label" type="Label" parent="AspectRatioContainer"]
+layout_mode = 2
+text = "Loading"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="ProgressBar" type="ProgressBar" parent="AspectRatioContainer"]
+layout_mode = 2

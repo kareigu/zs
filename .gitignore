@@ -1,0 +1,20 @@
+# Godot 4+ specific ignores
+.godot/
+.cache/
+bin/*.dll
+bin/*.exp
+bin/*.lib
+compile_commands.json
+cs/
+.import/
+export.cfg
+export_presets.cfg
+*.translation
+.mono/
+data_*/
+mono_crash.*.json
+.directory
+.DS_Store
+*~
+*.blend1
+*.obj

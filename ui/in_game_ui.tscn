@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkrhs8rtejb4r"]
+
+[ext_resource type="Texture2D" uid="uid://cwphhxbgg2rsb" path="res://gfx/sprites/xhair.png" id="1_jxt31"]
+
+[node name="in_game_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="aspect_ratio_container" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="v_box_container" type="VBoxContainer" parent="aspect_ratio_container"]
+layout_mode = 2
+
+[node name="h_box_container2" type="HBoxContainer" parent="aspect_ratio_container/v_box_container"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="debug_info_container" type="VBoxContainer" parent="aspect_ratio_container/v_box_container/h_box_container2"]
+layout_mode = 2
+
+[node name="debug_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container2/debug_info_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Debug"
+vertical_alignment = 1
+
+[node name="fps_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container2/debug_info_container"]
+layout_mode = 2
+text = "FPS:"
+
+[node name="view_angles_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container2/debug_info_container"]
+layout_mode = 2
+text = "view_angles: x = 0, y = 0, z = 0"
+
+[node name="velocity_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container2/debug_info_container"]
+layout_mode = 2
+text = "velocity:"
+
+[node name="spacer" type="Control" parent="aspect_ratio_container/v_box_container"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.49
+
+[node name="h_box_container" type="HBoxContainer" parent="aspect_ratio_container/v_box_container"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="v_box_container" type="VBoxContainer" parent="aspect_ratio_container/v_box_container/h_box_container"]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 2
+
+[node name="h_box_container" type="HBoxContainer" parent="aspect_ratio_container/v_box_container/h_box_container/v_box_container"]
+layout_mode = 2
+
+[node name="hp_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container/v_box_container/h_box_container"]
+layout_mode = 2
+text = "HP-100"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="armour_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container/v_box_container/h_box_container"]
+layout_mode = 2
+text = "AP-100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="control" type="Control" parent="aspect_ratio_container/v_box_container/h_box_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="v_box_container2" type="VBoxContainer" parent="aspect_ratio_container/v_box_container/h_box_container"]
+layout_mode = 2
+
+[node name="money_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container/v_box_container2"]
+layout_mode = 2
+text = "$800"
+
+[node name="control2" type="Control" parent="aspect_ratio_container/v_box_container/h_box_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="v_box_container3" type="VBoxContainer" parent="aspect_ratio_container/v_box_container/h_box_container"]
+layout_mode = 2
+
+[node name="ammo_label" type="Label" parent="aspect_ratio_container/v_box_container/h_box_container/v_box_container3"]
+layout_mode = 2
+text = "30/90"
+
+[node name="center_container" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="crosshair" type="TextureRect" parent="center_container"]
+layout_mode = 2
+texture = ExtResource("1_jxt31")

@@ -1,0 +1,141 @@
+[gd_scene load_steps=18 format=3 uid="uid://vabgh5m0cxrm"]
+
+[ext_resource type="Script" path="res://levels/test_level.cs" id="1_lor4x"]
+[ext_resource type="PackedScene" uid="uid://bkrhs8rtejb4r" path="res://ui/in_game_ui.tscn" id="2_kd7w1"]
+[ext_resource type="PackedScene" uid="uid://dbupxeb6r8tcg" path="res://gfx/models/ct.glb" id="3_ceyax"]
+[ext_resource type="PackedScene" uid="uid://g60aqlh6stjr" path="res://maps/testmap.tscn" id="3_qctrc"]
+[ext_resource type="LightmapGIData" uid="uid://b8agol1v25o7x" path="res://maps/test_level.lmbake" id="3_u44qu"]
+[ext_resource type="ArrayOccluder3D" uid="uid://ce7kt44b085vk" path="res://levels/test_level.occ" id="6_twp3a"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_4obcy"]
+rayleigh_color = Color(0.360784, 0.47451, 0.682353, 1)
+mie_eccentricity = 0.95
+mie_color = Color(0.984314, 0.980392, 0.94902, 1)
+ground_color = Color(0.14902, 0.215686, 0.337255, 1)
+
+[sub_resource type="Sky" id="Sky_7n4d5"]
+sky_material = SubResource("PhysicalSkyMaterial_4obcy")
+process_mode = 1
+radiance_size = 4
+
+[sub_resource type="Environment" id="Environment_1sett"]
+background_mode = 2
+sky = SubResource("Sky_7n4d5")
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_cf5lt"]
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_na3va"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_pf3ut"]
+density = 8.0
+albedo = Color(0.745098, 0.745098, 0.745098, 1)
+height_falloff = 0.779365
+edge_fade = 0.273208
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0dlk7"]
+noise_type = 2
+fractal_lacunarity = 3.78
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lgtpk"]
+invert = true
+in_3d_space = true
+noise = SubResource("FastNoiseLite_0dlk7")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uh1uq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8hpf"]
+shading_mode = 0
+albedo_color = Color(0.262745, 0.262745, 0.262745, 1)
+refraction_scale = 0.16
+detail_enabled = true
+detail_mask = SubResource("NoiseTexture2D_uh1uq")
+detail_blend_mode = 3
+detail_albedo = SubResource("NoiseTexture2D_lgtpk")
+disable_receive_shadows = true
+shadow_to_opacity = true
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+distance_fade_min_distance = 318.58
+
+[sub_resource type="SphereMesh" id="SphereMesh_0mx8f"]
+material = SubResource("StandardMaterial3D_a8hpf")
+flip_faces = true
+radius = 3.0
+height = 5.5
+
+[node name="TestLevel" type="Node3D" node_paths=PackedStringArray("menu_button")]
+script = ExtResource("1_lor4x")
+menu_button = NodePath("menu_button")
+
+[node name="in_game_ui" parent="." instance=ExtResource("2_kd7w1")]
+
+[node name="menu_button" type="Button" parent="."]
+offset_left = 22.0
+offset_top = 11.0
+offset_right = 30.0
+offset_bottom = 19.0
+text = "Menu"
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.172167, 0.0400014, -0.0843511)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.287903, -0.307434, -0.235443)
+size = Vector3(3.25281, 0.385132, 2.61127)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0748023, 0.506739, -0.0809791)
+operation = 2
+radius = 1.0
+rings = 12
+
+[node name="world_environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1sett")
+camera_attributes = SubResource("CameraAttributesPhysical_cf5lt")
+
+[node name="sun" type="DirectionalLight3D" parent="world_environment"]
+transform = Transform3D(0.0347029, -0.561708, 0.826608, 0.0235611, 0.827336, 0.561213, -0.99912, 4.66072e-08, 0.0419454, -0.0269194, 0.678973, -0.0183439)
+light_color = Color(0.984314, 0.988235, 0.870588, 1)
+light_angular_distance = 0.5
+shadow_enabled = true
+shadow_blur = 0.8
+
+[node name="SAS" parent="." instance=ExtResource("3_ceyax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.942213, -0.127931, 0.501434)
+
+[node name="lightmap_gi" type="LightmapGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8744, 0.62391, 0.358025)
+quality = 3
+camera_attributes = SubResource("CameraAttributesPhysical_na3va")
+generate_probes_subdiv = 3
+light_data = ExtResource("3_u44qu")
+
+[node name="testmap" parent="." instance=ExtResource("3_qctrc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.96271, -0.995524, -2.11232)
+
+[node name="fog_volume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5385, 0.57233, 0.913489)
+size = Vector3(7, 7, 7)
+shape = 0
+material = SubResource("FogMaterial_pf3ut")
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="fog_volume"]
+gi_mode = 2
+mesh = SubResource("SphereMesh_0mx8f")
+
+[node name="player" type="Player" parent="." node_paths=PackedStringArray("ui")]
+character_model = ExtResource("3_ceyax")
+ui = NodePath("../in_game_ui")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.03809, 0, -0.722681)
+
+[node name="occluder_instance_3d" type="OccluderInstance3D" parent="."]
+occluder = ExtResource("6_twp3a")

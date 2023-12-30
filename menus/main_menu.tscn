@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://deu50edn17sk8"]
+
+[ext_resource type="Script" path="res://menus/main_menu.cs" id="1_3t3qr"]
+[ext_resource type="Texture2D" uid="uid://dyie2f38rqeh4" path="res://icon.png" id="2_0etmv"]
+
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("play_button", "exit_button")]
+script = ExtResource("1_3t3qr")
+play_button = NodePath("AspectRatioContainer/vbox_container/menu_buttons/MarginContainer/play_button")
+exit_button = NodePath("AspectRatioContainer/vbox_container/menu_buttons/MarginContainer2/exit_button")
+
+[node name="color_rect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0352941, 0.054902, 0.0784314, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox_container" type="VBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="spacer" type="Control" parent="AspectRatioContainer/vbox_container"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="title_box" type="HBoxContainer" parent="AspectRatioContainer/vbox_container"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="spacer" type="Control" parent="AspectRatioContainer/vbox_container/title_box"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Logo" type="TextureRect" parent="AspectRatioContainer/vbox_container/title_box"]
+layout_mode = 2
+texture = ExtResource("2_0etmv")
+expand_mode = 3
+
+[node name="Title" type="Label" parent="AspectRatioContainer/vbox_container/title_box"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Zeta Squadron"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="spacer2" type="Control" parent="AspectRatioContainer/vbox_container/title_box"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="spacer2" type="Control" parent="AspectRatioContainer/vbox_container"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="menu_buttons" type="VBoxContainer" parent="AspectRatioContainer/vbox_container"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/vbox_container/menu_buttons"]
+layout_mode = 2
+
+[node name="play_button" type="Button" parent="AspectRatioContainer/vbox_container/menu_buttons/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Start playing"
+text = "PLAY"
+
+[node name="MarginContainer2" type="MarginContainer" parent="AspectRatioContainer/vbox_container/menu_buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="exit_button" type="Button" parent="AspectRatioContainer/vbox_container/menu_buttons/MarginContainer2"]
+layout_mode = 2
+text = "EXIT"

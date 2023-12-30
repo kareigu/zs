@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://deu50edn17sk8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhs1p"]
+font_size = 50
+font_color = Color(0.941176, 0.529412, 0.192157, 1)
+
+[sub_resource type="GDScript" id="GDScript_csppk"]
+script/source = "extends Button
+
+@onready var loading_screen: PackedScene = load(\"res://levels/loading_screen.tscn\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func _on_play_button_pressed():
+	get_tree().change_scene_to_packed(loading_screen)
+	var test_level = ResourceLoader.load(\"res://levels/test_level.tscn\")
+	get_tree().change_scene_to_packed(test_level)
+"
+
+[node name="MainMenu" type="CanvasLayer"]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.001
+anchor_bottom = 1.001
+offset_right = -0.280029
+offset_bottom = 0.279968
+
+[node name="GridContainer" type="GridContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="AspectRatioContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Logo" type="Label" parent="AspectRatioContainer/GridContainer/HFlowContainer"]
+layout_mode = 2
+text = "ζ"
+label_settings = SubResource("LabelSettings_bhs1p")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="AspectRatioContainer/GridContainer/HFlowContainer"]
+layout_mode = 2
+text = "Zeta Squadron"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/GridContainer"]
+layout_mode = 2
+
+[node name="play_button" type="Button" parent="AspectRatioContainer/GridContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Start playing"
+text = "play"
+script = SubResource("GDScript_csppk")
