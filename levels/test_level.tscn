@@ -135,7 +135,7 @@ mesh = SubResource("SphereMesh_0mx8f")
 [node name="player" type="Player" parent="." node_paths=PackedStringArray("ui")]
 character_model = ExtResource("3_ceyax")
 ui = NodePath("../in_game_ui")
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.03809, 0, -0.722681)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.17424, 0, -41.9853)
 
 [node name="occluder_instance_3d" type="OccluderInstance3D" parent="."]
 occluder = ExtResource("6_twp3a")

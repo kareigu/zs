@@ -21,41 +21,41 @@ heightmap_texture = ExtResource("4_dvl5j")
 
 [node name="testmap" instance=ExtResource("1_e6mol")]
 
-[node name="entity0_brush0" parent="entity0 (worldspawn)" index="0"]
+[node name="entity0_brush0" parent="entity0 (worldspawn)" index="3"]
 surface_material_override/0 = SubResource("StandardMaterial3D_5yxtu")
 
-[node name="entity0_brush1" parent="entity0 (worldspawn)" index="1"]
+[node name="entity0_brush1" parent="entity0 (worldspawn)" index="4"]
 surface_material_override/0 = ExtResource("5_5u5x4")
 
-[node name="entity0_brush10" parent="entity0 (worldspawn)" index="2"]
+[node name="entity0_brush10" parent="entity0 (worldspawn)" index="5"]
 surface_material_override/0 = ExtResource("6_f4qg3")
 
-[node name="entity0_brush11" parent="entity0 (worldspawn)" index="5"]
+[node name="entity0_brush11" parent="entity0 (worldspawn)" index="8"]
 surface_material_override/0 = ExtResource("6_f4qg3")
 
-[node name="entity0_brush12" parent="entity0 (worldspawn)" index="8"]
+[node name="entity0_brush12" parent="entity0 (worldspawn)" index="11"]
 surface_material_override/0 = ExtResource("6_f4qg3")
 
-[node name="entity0_brush13" parent="entity0 (worldspawn)" index="11"]
+[node name="entity0_brush13" parent="entity0 (worldspawn)" index="14"]
 surface_material_override/0 = ExtResource("6_f4qg3")
 
-[node name="entity0_brush3" parent="entity0 (worldspawn)" index="24"]
+[node name="entity0_brush3" parent="entity0 (worldspawn)" index="27"]
 surface_material_override/0 = ExtResource("5_5u5x4")
 
-[node name="entity0_brush4" parent="entity0 (worldspawn)" index="25"]
+[node name="entity0_brush4" parent="entity0 (worldspawn)" index="28"]
 surface_material_override/0 = ExtResource("5_5u5x4")
 
-[node name="entity0_brush5" parent="entity0 (worldspawn)" index="26"]
+[node name="entity0_brush5" parent="entity0 (worldspawn)" index="29"]
 surface_material_override/0 = ExtResource("5_5u5x4")
 
-[node name="entity0_brush6" parent="entity0 (worldspawn)" index="27"]
+[node name="entity0_brush6" parent="entity0 (worldspawn)" index="30"]
 surface_material_override/0 = ExtResource("7_yd8fq")
 
-[node name="entity0_brush7" parent="entity0 (worldspawn)" index="30"]
+[node name="entity0_brush7" parent="entity0 (worldspawn)" index="33"]
 surface_material_override/0 = ExtResource("8_l1wk1")
 
-[node name="entity0_brush8" parent="entity0 (worldspawn)" index="33"]
+[node name="entity0_brush8" parent="entity0 (worldspawn)" index="36"]
 surface_material_override/0 = ExtResource("6_f4qg3")
 
-[node name="entity0_brush9" parent="entity0 (worldspawn)" index="36"]
+[node name="entity0_brush9" parent="entity0 (worldspawn)" index="39"]
 surface_material_override/0 = ExtResource("6_f4qg3")

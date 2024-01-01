@@ -98,6 +98,7 @@ private:
   void friction(double delta, real_t magnitude);
   void accelerate(double delta, godot::Vector3 wish_dir, real_t wish_speed, real_t accel);
   void air_accelerate(double delta, godot::Vector3 wish_dir, real_t wish_speed, real_t accel);
+  void handle_surf();
 
   real_t m_friction = 6;
   real_t m_gravity;

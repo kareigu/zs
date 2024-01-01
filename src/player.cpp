@@ -1,7 +1,7 @@
 #include "player.h"
-#include "godot_cpp/classes/cylinder_shape3d.hpp"
 #include "trace.h"
 
+#include <godot_cpp/classes/cylinder_shape3d.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/global_constants.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -145,7 +145,6 @@ void Player::_physics_process(double delta) {
 
   Input* input = Input::get_singleton();
 
-  m_player_velocity = get_velocity();
 
   if (!(m_buttons & InButtons::Jump) || !is_on_floor())
     m_jump_queued = false;
@@ -169,6 +168,9 @@ void Player::_physics_process(double delta) {
 
   set_velocity(m_player_velocity);
   move_and_slide();
+  m_player_velocity = get_velocity();
+
+  handle_surf();
 
   m_duck_time -= delta;
 }
@@ -344,6 +346,25 @@ void Player::air_accelerate(double delta, godot::Vector3 wish_dir, real_t wish_s
 
   for (int i = 0; i < 3; i++)
     m_player_velocity[i] += accel_speed * wish_dir[i];
+}
+
+void Player::handle_surf() {
+  if (!is_on_wall_only())
+    return;
+  auto last_collision = get_last_slide_collision();
+  if (last_collision.is_null())
+    return;
+
+  if (last_collision->get_normal().y <= 0.1)
+    return;
+
+  if (m_direction_norm.length() <= 0)
+    return;
+
+  auto view_dir = get_transform().basis[2];
+  view_dir.y += m_camera->get_rotation().x;
+  auto move = last_collision->get_normal().cross(view_dir).normalized();
+  m_player_velocity = m_player_velocity.slide(move);
 }
 
 void Player::duck(double delta) {
