@@ -85,6 +85,7 @@ private:
   StateFlags_t m_state = 0;
   bool m_menu_open = false;
 
+  void update_timers(double delta);
   void duck(double delta);
   void unduck(double delta);
   bool m_ducking = false;

@@ -172,7 +172,7 @@ void Player::_physics_process(double delta) {
 
   handle_surf();
 
-  m_duck_time -= delta;
+  update_timers(delta);
 }
 
 void Player::air_move(double delta) {
@@ -365,6 +365,10 @@ void Player::handle_surf() {
   view_dir.y += m_camera->get_rotation().x;
   auto move = last_collision->get_normal().cross(view_dir).normalized();
   m_player_velocity = m_player_velocity.slide(move);
+}
+
+void Player::update_timers(double delta) {
+  m_duck_time -= delta;
 }
 
 void Player::duck(double delta) {
