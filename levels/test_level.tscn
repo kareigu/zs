@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://vabgh5m0cxrm"]
+[gd_scene load_steps=20 format=3 uid="uid://vabgh5m0cxrm"]
 
 [ext_resource type="Script" path="res://levels/test_level.cs" id="1_lor4x"]
 [ext_resource type="PackedScene" uid="uid://bkrhs8rtejb4r" path="res://ui/in_game_ui.tscn" id="2_kd7w1"]
@@ -72,6 +72,13 @@ flip_faces = true
 radius = 3.0
 height = 5.5
 
+[sub_resource type="BoxMesh" id="BoxMesh_64l0j"]
+flip_faces = true
+size = Vector3(-0.07, 5.285, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g824c"]
+size = Vector3(0.145996, 5.36731, 1)
+
 [node name="TestLevel" type="Node3D" node_paths=PackedStringArray("menu_button")]
 script = ExtResource("1_lor4x")
 menu_button = NodePath("menu_button")
@@ -139,3 +146,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.17424, 0, -41.9853)
 
 [node name="occluder_instance_3d" type="OccluderInstance3D" parent="."]
 occluder = ExtResource("6_twp3a")
+
+[node name="ladder" type="Ladder" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46773, 1.54411, -48.3483)
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.430751, 0.672539, 0)
+mesh = SubResource("BoxMesh_64l0j")
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.427002, 0.746887, 0)
+shape = SubResource("BoxShape3D_g824c")

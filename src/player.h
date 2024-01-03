@@ -32,6 +32,7 @@ using StateFlags_t = uint8_t;
 namespace StateFlags {
   constexpr StateFlags_t Ducked = 1;
   constexpr StateFlags_t Sneaking = 2;
+  constexpr StateFlags_t OnLadder = 4;
 }// namespace StateFlags
 
 class Player : public CharacterBody3D {
@@ -100,6 +101,10 @@ private:
   void accelerate(double delta, godot::Vector3 wish_dir, real_t wish_speed, real_t accel);
   void air_accelerate(double delta, godot::Vector3 wish_dir, real_t wish_speed, real_t accel);
   void handle_surf();
+  void handle_ladder();
+  void apply_gravity(double delta);
+
+  Vector3 m_ladder_normal = Vector3();
 
   real_t m_friction = 6;
   real_t m_gravity;

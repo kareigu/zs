@@ -1,4 +1,6 @@
 #include "player.h"
+#include "common.h"
+#include "ladder.h"
 #include "trace.h"
 
 #include <godot_cpp/classes/cylinder_shape3d.hpp>
@@ -165,6 +167,8 @@ void Player::_physics_process(double delta) {
     ground_move(delta);
   } else
     air_move(delta);
+  handle_ladder();
+  apply_gravity(delta);
 
   set_velocity(m_player_velocity);
   move_and_slide();
@@ -199,8 +203,6 @@ void Player::air_move(double delta) {
   air_accelerate(delta, wish_dir, wish_speed, accel);
   if (m_air_control > 0)
     air_control(delta, wish_dir, wishspeed_ctrl);
-
-  m_player_velocity.y -= m_gravity * delta;
 }
 
 void Player::air_control(double delta, godot::Vector3 target_dir, real_t target_speed) {
@@ -256,14 +258,6 @@ void Player::ground_move(double delta) {
       m_player_velocity.x = m_player_velocity.x * max_speed;
       m_player_velocity.z = m_player_velocity.z * max_speed;
     }
-  }
-  m_player_velocity.y = -m_gravity * delta;
-
-  if (m_jump_queued) {
-    m_player_velocity.y = m_jump_force;
-    m_jump_queued = false;
-    if (m_buttons & InButtons::Jump)
-      m_buttons &= ~InButtons::Jump;
   }
 }
 
@@ -365,6 +359,65 @@ void Player::handle_surf() {
   view_dir.y += m_camera->get_rotation().x;
   auto move = last_collision->get_normal().cross(view_dir).normalized();
   m_player_velocity = m_player_velocity.slide(move);
+}
+
+void Player::handle_ladder() {
+  if (!is_on_wall()) {
+    m_state &= ~StateFlags::OnLadder;
+    return;
+  }
+  auto collision_count = get_slide_collision_count();
+  for (int32_t i = 0; i < collision_count; i++) {
+    auto collision = get_slide_collision(i);
+    if (collision.is_null())
+      continue;
+
+    auto ladder = cast_to<Ladder>(collision->get_collider());
+    if (ladder == nullptr)
+      continue;
+
+    m_state |= StateFlags::OnLadder;
+    m_ladder_normal = collision->get_normal();
+    return;
+  }
+  m_state &= ~StateFlags::OnLadder;
+}
+
+void Player::apply_gravity(double delta) {
+  if (!(m_state & StateFlags::OnLadder)) {
+    m_player_velocity.y = is_on_floor()
+                                ? -m_gravity * delta
+                                : m_player_velocity.y - m_gravity * delta;
+  }
+
+  if (m_state & StateFlags::OnLadder) {
+    auto velocity = m_player_velocity.normalized();
+    auto direction_to = velocity.direction_to(m_ladder_normal);
+    auto dot = direction_to.dot(-velocity);
+    if (dot > 0)
+      m_player_velocity.y = m_jump_force * (m_camera->get_rotation().x + Math_PI / 5);
+
+    if (m_move_dir.length() == 0) {
+      m_player_velocity.y = 0;
+      if (!is_on_floor()) {
+        m_player_velocity.x *= direction_to.x;
+        m_player_velocity.z *= direction_to.z;
+      }
+    }
+
+
+    /* auto view_dir = get_transform().basis[2]; */
+    /* view_dir.y += m_camera->get_rotation().x; */
+    /* auto move = direction_to.cross(view_dir).normalized(); */
+    /* m_player_velocity = m_player_velocity.slide(move); */
+  }
+
+  if (m_jump_queued) {
+    m_player_velocity.y = m_jump_force;
+    m_jump_queued = false;
+    if (m_buttons & InButtons::Jump)
+      m_buttons &= ~InButtons::Jump;
+  }
 }
 
 void Player::update_timers(double delta) {

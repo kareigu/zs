@@ -1,5 +1,6 @@
 #include "register_types.h"
 
+#include "ladder.h"
 #include "player.h"
 
 #include <gdextension_interface.h>
@@ -14,6 +15,7 @@ void initialize_zs_module(ModuleInitializationLevel p_level) {
   }
 
   ClassDB::register_class<Player>();
+  ClassDB::register_class<Ladder>();
 }
 
 void uninitialize_zs_module(ModuleInitializationLevel p_level) {
