@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ladder.h"
+
 #include <cstdint>
 
 #include <godot_cpp/classes/box_shape3d.hpp>
@@ -47,6 +49,7 @@ public:
   static constexpr real_t SNEAKING_SPEED_MULTIPLIER = 0.68;
   static constexpr real_t DUCK_SPEED_MULTIPLIER = 0.6;
   static constexpr real_t DUCK_TIME = 0.4;
+  static constexpr real_t LADDER_SPEED = 4;
 
   struct MoveVars {
     real_t max_speed;
@@ -100,10 +103,11 @@ private:
   void friction(double delta, real_t magnitude);
   void accelerate(double delta, godot::Vector3 wish_dir, real_t wish_speed, real_t accel);
   void air_accelerate(double delta, godot::Vector3 wish_dir, real_t wish_speed, real_t accel);
-  void handle_surf();
+  void handle_surf(bool direction);
   void handle_ladder();
   void apply_gravity(double delta);
 
+  Ladder* m_ladder = nullptr;
   Vector3 m_ladder_normal = Vector3();
 
   real_t m_friction = 6;
